@@ -613,7 +613,7 @@ void GridMap::convertToDefaultStartIndex()
 void GridMap::clear(const std::string& layer)
 {
   try {
-    data_.at(layer).setConstant(NAN);
+    data_.at(layer).setConstant(0.0);
   } catch (const std::out_of_range& exception) {
     throw std::out_of_range("GridMap::clear(...) : No map layer '" + layer + "' available.");
   }
@@ -629,7 +629,7 @@ void GridMap::clearBasic()
 void GridMap::clearAll()
 {
   for (auto& data : data_) {
-    data.second.setConstant(NAN);
+    data.second.setConstant(0.0);
   }
 }
 
@@ -639,7 +639,7 @@ void GridMap::clearRows(unsigned int index, unsigned int nRows)
   if (basicLayers_.size() > 0) layersToClear = basicLayers_;
   else layersToClear = layers_;
   for (auto& layer : layersToClear) {
-    data_.at(layer).block(index, 0, nRows, getSize()(1)).setConstant(NAN);
+    data_.at(layer).block(index, 0, nRows, getSize()(1)).setConstant(0.0);
   }
 }
 
@@ -649,7 +649,7 @@ void GridMap::clearCols(unsigned int index, unsigned int nCols)
   if (basicLayers_.size() > 0) layersToClear = basicLayers_;
   else layersToClear = layers_;
   for (auto& layer : layersToClear) {
-    data_.at(layer).block(0, index, getSize()(0), nCols).setConstant(NAN);
+    data_.at(layer).block(0, index, getSize()(0), nCols).setConstant(0.0);
   }
 }
 
@@ -660,10 +660,10 @@ bool GridMap::atPositionLinearInterpolated(const std::string& layer, const Posit
   Index indices[4];
   bool idxTempDir;
   size_t idxShift[4];
-  
+
   getIndex(position, indices[0]);
   getPosition(indices[0], point);
-  
+
   if (position.x() >= point.x()) {
     indices[1] = indices[0] + Index(-1, 0); // Second point is above first point.
     idxTempDir = true;
@@ -675,16 +675,16 @@ bool GridMap::atPositionLinearInterpolated(const std::string& layer, const Posit
       indices[2] = indices[0] + Index(0, -1); // Third point is right of first point.
       if(idxTempDir){ idxShift[0]=0; idxShift[1]=1; idxShift[2]=2; idxShift[3]=3; }
       else          { idxShift[0]=1; idxShift[1]=0; idxShift[2]=3; idxShift[3]=2; }
-      
-      
-  } else { 
-      indices[2] = indices[0] + Index(0, +1); 
+
+
+  } else {
+      indices[2] = indices[0] + Index(0, +1);
       if(idxTempDir){ idxShift[0]=2; idxShift[1]=3; idxShift[2]=0; idxShift[3]=1; }
       else          { idxShift[0]=3; idxShift[1]=2; idxShift[2]=1; idxShift[3]=0; }
   }
   indices[3].x() = indices[1].x();
   indices[3].y() = indices[2].y();
-  
+
   const Size& mapSize = getSize();
   const size_t bufferSize = mapSize(0) * mapSize(1);
   const size_t startIndexLin = getLinearIndexFromIndex(startIndex_, mapSize);
@@ -701,8 +701,8 @@ bool GridMap::atPositionLinearInterpolated(const std::string& layer, const Posit
   getPosition(indices[idxShift[0]], point);
   const Position positionRed     = ( position - point ) / resolution_;
   const Position positionRedFlip = Position(1.,1.) - positionRed;
-  
-  value = f[0] * positionRedFlip.x() * positionRedFlip.y() + 
+
+  value = f[0] * positionRedFlip.x() * positionRedFlip.y() +
           f[1] *     positionRed.x() * positionRedFlip.y() +
           f[2] * positionRedFlip.x() *     positionRed.y() +
           f[3] *     positionRed.x() *     positionRed.y();
@@ -718,4 +718,3 @@ void GridMap::resize(const Index& size)
 }
 
 } /* namespace */
-
