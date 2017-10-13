@@ -23,6 +23,7 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 find_package(octomap REQUIRED)
+message(STATUS "Found Octomap (version ${octomap_VERSION}): ${OCTOMAP_INCLUDE_DIRS}")
 
 ###################################
 ## catkin specific configuration ##
@@ -36,7 +37,7 @@ find_package(octomap REQUIRED)
 catkin_package(
   INCLUDE_DIRS include
 #  LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS
+  CATKIN_DEPENDS octomap
 #  DEPENDS system_lib
 )
 
@@ -50,7 +51,7 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIR}
-  ${OCTOMAP_INCLUDE_DIR}
+  ${OCTOMAP_INCLUDE_DIRS}
 )
 
 ## Declare a cpp executable
@@ -132,7 +133,8 @@ target_link_libraries(
 target_link_libraries(
   octomap_to_gridmap_demo
   ${catkin_LIBRARIES}
-  ${OCTOMAP_LIBRARIES}
+  ${OCTOMAP_LIBRARY}
+  ${OCTOMATH_LIBRARY}
 )
 
 target_link_libraries(
