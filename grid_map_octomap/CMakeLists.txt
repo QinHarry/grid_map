@@ -95,11 +95,10 @@ if(CATKIN_ENABLE_TESTING)
     test/test_grid_map_octomap.cpp
     test/OctomapConverterTest.cpp
   )
-endif()
 
-if(TARGET ${PROJECT_NAME}-test)
   target_link_libraries(${PROJECT_NAME}-test
     ${PROJECT_NAME}
-    ${OCTOMAP_LIBRARIES}
+    ${OCTOMAP_LIBRARY}
+    ${OCTOMATH_LIBRARY}
   )
 endif()
