@@ -25,6 +25,8 @@ find_package(catkin REQUIRED COMPONENTS
 find_package(octomap REQUIRED)
 message(STATUS "Found Octomap (version ${octomap_VERSION}): ${OCTOMAP_INCLUDE_DIRS}")
 
+find_package(OpenCV REQUIRED)
+
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -140,6 +142,7 @@ target_link_libraries(
 target_link_libraries(
   move_demo
   ${catkin_LIBRARIES}
+
 )
 
 target_link_libraries(
@@ -150,11 +153,13 @@ target_link_libraries(
 target_link_libraries(
   opencv_demo
   ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
 )
 
 target_link_libraries(
   resolution_change_demo
   ${catkin_LIBRARIES}
+  ${OpenCV_LIBRARIES}
 )
 
 target_link_libraries(
