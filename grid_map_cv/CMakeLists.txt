@@ -10,6 +10,8 @@ find_package(catkin REQUIRED COMPONENTS
   filters
 )
 
+find_package(OpenCV REQUIRED)
+
 ###################################
 ## catkin specific configuration ##
 ###################################
@@ -95,6 +97,6 @@ catkin_add_gtest(${PROJECT_NAME}-test
 endif()
 
 if(TARGET ${PROJECT_NAME}-test)
-  target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME})
+  target_link_libraries(${PROJECT_NAME}-test ${PROJECT_NAME} ${OpenCV_LIBRARIES})
 endif()
 
