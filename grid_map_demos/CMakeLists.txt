@@ -137,6 +137,7 @@ target_link_libraries(
   ${catkin_LIBRARIES}
   ${OCTOMAP_LIBRARY}
   ${OCTOMATH_LIBRARY}
+  ${OpenCV_LIBRARIES}
 )
 
 target_link_libraries(
