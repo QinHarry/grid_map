@@ -613,7 +613,10 @@ void GridMap::convertToDefaultStartIndex()
 void GridMap::clear(const std::string& layer)
 {
   try {
-    data_.at(layer).setConstant(0.0);
+    float val = NAN;
+    if (default_data_val_.find(layer) != default_data_val_.end())
+      val = default_data_val_[layer];
+    data_.at(layer).setConstant(val);
   } catch (const std::out_of_range& exception) {
     throw std::out_of_range("GridMap::clear(...) : No map layer '" + layer + "' available.");
   }
@@ -629,7 +632,10 @@ void GridMap::clearBasic()
 void GridMap::clearAll()
 {
   for (auto& data : data_) {
-    data.second.setConstant(0.0);
+    float val = NAN;
+    if (default_data_val_.find(data.first) != default_data_val_.end())
+      val = default_data_val_[data.first];
+    data.second.setConstant(val);
   }
 }
 
@@ -639,17 +645,25 @@ void GridMap::clearRows(unsigned int index, unsigned int nRows)
   if (basicLayers_.size() > 0) layersToClear = basicLayers_;
   else layersToClear = layers_;
   for (auto& layer : layersToClear) {
-    data_.at(layer).block(index, 0, nRows, getSize()(1)).setConstant(0.0);
+    float val = NAN;
+    if (default_data_val_.find(layer) != default_data_val_.end())
+      val = default_data_val_[layer];
+    data_.at(layer).block(index, 0, nRows, getSize()(1)).setConstant(val);
   }
 }
 
 void GridMap::clearCols(unsigned int index, unsigned int nCols)
 {
   std::vector<std::string> layersToClear;
-  if (basicLayers_.size() > 0) layersToClear = basicLayers_;
-  else layersToClear = layers_;
+  if (basicLayers_.size() > 0)
+    layersToClear = basicLayers_;
+  else
+    layersToClear = layers_;
   for (auto& layer : layersToClear) {
-    data_.at(layer).block(0, index, getSize()(0), nCols).setConstant(0.0);
+    float val = NAN;
+    if (default_data_val_.find(layer) != default_data_val_.end())
+      val = default_data_val_[layer];
+    data_.at(layer).block(0, index, getSize()(0), nCols).setConstant(val);
   }
 }
 
@@ -715,6 +729,10 @@ void GridMap::resize(const Index& size)
   for (auto& data : data_) {
     data.second.resize(size_(0), size_(1));
   }
+}
+
+void GridMap::setLayerDefaultValue(const std::string& layer, const float& value) {
+  default_data_val_[layer] = value;
 }
 
 } /* namespace */
