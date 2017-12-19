@@ -458,6 +458,11 @@ class GridMap
    */
   void convertToDefaultStartIndex();
 
+  /*!
+   * For a given layer sets the default value to use when creating new indices.
+   */
+  void setLayerDefaultValue(const std::string& layer, const float& value);
+
  private:
 
   /*!
@@ -497,6 +502,8 @@ class GridMap
 
   //! Grid map data stored as layers of matrices.
   std::unordered_map<std::string, Matrix> data_;
+
+  std::unordered_map<std::string, float> default_data_val_;
 
   //! Names of the data layers.
   std::vector<std::string> layers_;
