@@ -101,7 +101,7 @@ TEST(RosbagHandling, saveLoadWithTime)
 
   if (!ros::Time::isValid()) ros::Time::init();
   // TODO Do other time than now.
-  gridMapIn.setTimestamp(ros::Time::now().toNSec());
+  gridMapIn.setTimestamp(100);
 
   EXPECT_TRUE(GridMapRosConverter::saveToBag(gridMapIn, pathToBag, topic));
   EXPECT_TRUE(GridMapRosConverter::loadFromBag(pathToBag, topic, gridMapOut));
