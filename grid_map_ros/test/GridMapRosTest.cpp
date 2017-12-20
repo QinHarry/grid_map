@@ -113,7 +113,7 @@ TEST(RosbagHandling, saveLoadWithTime)
   }
 }
 
-TEST(OccupancyGridConversion, withMove)
+TEST(OccupancyGridConversion, DISABLED_withMove)
 {
   grid_map::GridMap map;
   map.setGeometry(grid_map::Length(8.0, 5.0), 0.5, grid_map::Position(0.0, 0.0));
