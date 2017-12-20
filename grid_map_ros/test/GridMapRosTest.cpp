@@ -85,7 +85,7 @@ TEST(RosbagHandling, saveLoad)
 TEST(RosbagHandling, saveLoadWithTime)
 {
   string layer = "layer";
-  string pathToBag = "test.bag";
+  string pathToBag = "test2.bag";
   string topic = "topic";
   vector<string> layers;
   layers.push_back(layer);
@@ -101,7 +101,8 @@ TEST(RosbagHandling, saveLoadWithTime)
 
   if (!ros::Time::isValid()) ros::Time::init();
   // TODO Do other time than now.
-  gridMapIn.setTimestamp(ros::Time::now().toNSec());
+  std::cerr << "ROS TIME NOW = " << ros::Time::now().toNSec() << std::endl;
+  gridMapIn.setTimestamp(100);//ros::Time::now().toNSec());
 
   EXPECT_TRUE(GridMapRosConverter::saveToBag(gridMapIn, pathToBag, topic));
   EXPECT_TRUE(GridMapRosConverter::loadFromBag(pathToBag, topic, gridMapOut));
