@@ -5,10 +5,10 @@ set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 set(CMAKE_CXX_FLAGS "-O3 ${CMAKE_CXX_FLAGS}")
 
 ## Find catkin macros and libraries
-find_package(catkin REQUIRED COMPONENTS)
+find_package(catkin REQUIRED COMPONENTS octomap)
 
-find_package(octomap REQUIRED)
-message(STATUS "Found Octomap (version ${octomap_VERSION}): ${OCTOMAP_INCLUDE_DIRS}")
+#find_package(octomap REQUIRED)
+#message(STATUS "Found Octomap (version ${octomap_VERSION}): ${OCTOMAP_INCLUDE_DIRS}")
 
 ## Define Eigen addons.
 include(cmake/${PROJECT_NAME}-extras.cmake)
@@ -39,6 +39,7 @@ catkin_package(
   LIBRARIES
     ${PROJECT_NAME}
   CATKIN_DEPENDS
+    octomap
   DEPENDS
     #Eigen3
   CFG_EXTRAS

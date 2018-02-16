@@ -10,4 +10,5 @@
   <author email="pfankhauser@ethz.ch">Péter Fankhauser</author>
   <buildtool_depend>catkin</buildtool_depend>
   <depend>eigen</depend>
+  <depend>octomap</depend>
 </package>
