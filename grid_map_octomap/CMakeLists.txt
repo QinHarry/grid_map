@@ -4,11 +4,9 @@ project(grid_map_octomap)
 set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
 
 ## Find catkin macros and libraries
-find_package(catkin REQUIRED COMPONENTS
+find_package(catkin REQUIRED COMPONENTS octomap
   grid_map_core
 )
-find_package(octomap REQUIRED)
-message(STATUS "Found Octomap (version ${octomap_VERSION}): ${OCTOMAP_INCLUDE_DIRS}")
 
 ###################################
 ## catkin specific configuration ##
@@ -22,10 +20,8 @@ message(STATUS "Found Octomap (version ${octomap_VERSION}): ${OCTOMAP_INCLUDE_DI
 catkin_package(
   INCLUDE_DIRS
     include
-    ${OCTOMAP_INCLUDE_DIRS}
   LIBRARIES
     ${PROJECT_NAME}
-    ${OCTOMAP_LIBRARIES}
   CATKIN_DEPENDS
     grid_map_core
   DEPENDS
@@ -58,7 +54,6 @@ add_library(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
   ${catkin_LIBRARIES}
-  ${OCTOMAP_LIBRARIES}
 )
 
 add_dependencies(${PROJECT_NAME}

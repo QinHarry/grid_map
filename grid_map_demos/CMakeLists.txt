@@ -18,12 +18,10 @@ find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   sensor_msgs
   cv_bridge
+  octomap
   octomap_msgs
   filters
 )
-
-find_package(octomap REQUIRED)
-message(STATUS "Found Octomap (version ${octomap_VERSION}): ${OCTOMAP_INCLUDE_DIRS}")
 
 find_package(OpenCV REQUIRED)
 
@@ -53,7 +51,6 @@ include_directories(
   include
   ${catkin_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIR}
-  ${OCTOMAP_INCLUDE_DIRS}
 )
 
 ## Declare a cpp executable
@@ -135,8 +132,6 @@ target_link_libraries(
 target_link_libraries(
   octomap_to_gridmap_demo
   ${catkin_LIBRARIES}
-  ${OCTOMAP_LIBRARY}
-  ${OCTOMATH_LIBRARY}
   ${OpenCV_LIBRARIES}
 )
 
